@@ -1,4 +1,4 @@
-package Exeptions;
+package University;
 
 public class Group {
     String universityName;

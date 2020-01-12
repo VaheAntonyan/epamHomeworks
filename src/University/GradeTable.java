@@ -1,4 +1,4 @@
-package Exeptions;
+package University;
 
 import java.util.Random;
 

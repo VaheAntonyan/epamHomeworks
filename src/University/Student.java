@@ -1,4 +1,4 @@
-package Exeptions;
+package University;
 
 public class Student {
     String studentName;
