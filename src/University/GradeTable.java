@@ -4,11 +4,9 @@ import java.util.Random;
 
 public class GradeTable {
     int[][] gradeTable;
-    int gradeMaxCount;
     String[] subjects;
 
     public GradeTable(String[] subjects, int gradeMaxCount) {
-        this.gradeMaxCount = gradeMaxCount;
         this.subjects = subjects;
         gradeTable = new int[subjects.length][gradeMaxCount];
         for (int i = 0; i < subjects.length; i++) {
