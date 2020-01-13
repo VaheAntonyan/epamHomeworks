@@ -3,33 +3,46 @@ package University;
 import java.util.Random;
 
 public class Main {
-    public static void main(String[] args) {
-        String universityName = "YSU";
+    static String universityName;
+    static String[] facultyNames;
+    static int facultyCount;
+    static String[] groupNames;
+    static int[] groupCount;
+    static String[][] subjectsForGroup;
+    static String[] subjectsAll;
+    static int subjectsAllCount;
 
-        String[] facultyNames = {"Informatics and Applied Mathematics", "Mathematics and Mechanics"};
-        int facultyCount = facultyNames.length;
+    static int[] studentCountInGroup;
+    static int studentCountAll;
+    static Student[] students;
 
-        String[] groupNames = {"1501", "1502", "2501", "2502", "2503"};
-        int[] groupCount = {2, 3};
+    public static void Initializing(){
+        universityName = "YSU";
 
-        String[][] subjectsForGroup = {
+        facultyNames = new String[]{"Informatics and Applied Mathematics", "Mathematics and Mechanics"};
+        facultyCount = facultyNames.length;
+
+        groupNames = new String[]{"1501", "1502", "2501", "2502", "2503"};
+        groupCount = new int[]{2, 3};
+
+        subjectsForGroup = new String[][]{
                 {"Physics", "Philosophy", "History"},
                 {"Math", "Physics", "Philosophy"},
                 {"Math", "Physics", "Philosophy"},
                 {"Math", "Physics"},
                 {"Math", "Physics", "Philosophy", "History"}};
-        String[] subjectsAll = {"Physics", "Philosophy", "History", "Math"};
-        int subjectsAllCount = subjectsAll.length;
+        subjectsAll = new String[]{"Physics", "Philosophy", "History", "Math"};
+        subjectsAllCount = subjectsAll.length;
 
-        int[] studentCountInGroup = {3, 5, 7, 4, 4};
-        int studentCountAll = 23;
-        int studentIndex = 0;
-        Student[] students = new Student[studentCountAll];
+        studentCountInGroup = new int[]{3, 5, 7, 4, 4};
+        studentCountAll = 23;
+        students = new Student[studentCountAll];
         for (int i = 0; i < studentCountAll; ++i) {
             students[i] = new Student("Student " + (i + 1));
         }
-        Random ran = new Random();
 
+        int studentIndex = 0;
+        Random ran = new Random();
         for (int i = 0; i < facultyCount; ++i) {
             for (int j = 0; j < groupCount[i]; ++j) {
                 Group group = new Group(universityName, facultyNames[i], groupNames[i * facultyCount + j], subjectsForGroup[i * facultyCount + j]);
@@ -40,13 +53,17 @@ public class Main {
                 }
             }
         }
+    }
 
+    public static void printStudentsGrades(){
         for (int i = 0; i < studentCountAll; i++) {
             System.out.println(students[i].studentName);
             students[i].grades.printGrades();
             System.out.println();
         }
+    }
 
+    private static void calculateAndPrintMeanGrades() {
         String curFacultyName = students[0].group.facultyName;
         String curGroupName = students[0].group.groupName;
         int[][] tableSt = new int[subjectsAllCount][2];
@@ -137,5 +154,11 @@ public class Main {
                 tableUni[j][1] = 0;
             }
         }
+    }
+
+    public static void main(String[] args) {
+        Initializing();
+        printStudentsGrades();
+        calculateAndPrintMeanGrades();
     }
 }

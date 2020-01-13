@@ -19,7 +19,7 @@ public class GradeTable {
         Random ran = new Random();
         for (int i = 0; i < subjects.length; i++) {
             for (int j = 0; j < gradeMaxCount - ran.nextInt(3); j++) {
-                gradeTable[i][j] = ran.nextInt(6) + 5;
+                gradeTable[i][j] = ran.nextInt(11);
             }
         }
     }
