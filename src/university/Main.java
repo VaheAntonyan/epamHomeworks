@@ -65,7 +65,7 @@ public class Main {
                 for (int k = 0; k < studentCountInGroup[i * facultyCount + j]; ++k, ++studentIndex) {
                     int gradeMaxCount = ran.nextInt(6) + 5;
                     students[studentIndex].group = group;
-                    students[studentIndex].grades = new GradeTable(subjectsForGroup[i * facultyCount + j], gradeMaxCount);
+                    students[studentIndex].grades = new GradeTable(subjectsForGroup[i * facultyCount + j], gradeMaxCount).addGrades();
                 }
             }
         }
