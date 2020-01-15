@@ -1,5 +1,7 @@
 package university;
 
+import university.myExeptions.GradeExeption;
+
 import java.util.Random;
 
 public class Main {
@@ -61,10 +63,14 @@ public class Main {
                 Group group = new Group(universityName, facultyNames[i], groupNames[i * facultyCount + j], subjectsForGroup[i * facultyCount + j]);
                 for (int k = 0; k < studentCountInGroup[i * facultyCount + j]; ++k, ++studentIndex) {
                     int gradeMaxCount = ran.nextInt(6) + 5;
-                    students[studentIndex] = new Student.StudentBuilder("Student " + (studentIndex + 1))
-                            .group(group)
-                            .grades(new GradeTable(subjectsForGroup[i * facultyCount + j], gradeMaxCount).addGrades())
-                            .build();
+                    try {
+                        students[studentIndex] = new Student.StudentBuilder("Student " + (studentIndex + 1))
+                                .group(group)
+                                .grades(new GradeTable(subjectsForGroup[i * facultyCount + j], gradeMaxCount).addGrades())
+                                .build();
+                    } catch (GradeExeption gradeExeption) {
+                        gradeExeption.printStackTrace();
+                    }
                 }
             }
         }

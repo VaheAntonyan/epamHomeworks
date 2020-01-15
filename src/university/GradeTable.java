@@ -1,5 +1,7 @@
 package university;
 
+import university.myExeptions.GradeExeption;
+
 import java.util.Random;
 
 public class GradeTable {
@@ -28,11 +30,15 @@ public class GradeTable {
         }
     }
 
-    public GradeTable addGrades() {
+    public GradeTable addGrades() throws GradeExeption {
         Random ran = new Random();
         for (int i = 0; i < subjects.length; i++) {
             for (int j = 0; j < gradeMaxCount - ran.nextInt(3); j++) {
-                gradeTable[i][j] = ran.nextInt(11);
+                int grade = ran.nextInt(11);
+                if (grade > 10 || grade < 0) {
+                    throw new GradeExeption(grade);
+                }
+                gradeTable[i][j] = grade;
             }
         }
         return this;
