@@ -53,9 +53,6 @@ public class Main {
         studentCountInGroup = new int[]{3, 5, 7, 4, 4};
         studentCountAll = 23;
         students = new Student[studentCountAll];
-        for (int i = 0; i < studentCountAll; ++i) {
-            students[i] = new Student("Student " + (i + 1));
-        }
 
         int studentIndex = 0;
         Random ran = new Random();
@@ -64,8 +61,10 @@ public class Main {
                 Group group = new Group(universityName, facultyNames[i], groupNames[i * facultyCount + j], subjectsForGroup[i * facultyCount + j]);
                 for (int k = 0; k < studentCountInGroup[i * facultyCount + j]; ++k, ++studentIndex) {
                     int gradeMaxCount = ran.nextInt(6) + 5;
-                    students[studentIndex].group = group;
-                    students[studentIndex].grades = new GradeTable(subjectsForGroup[i * facultyCount + j], gradeMaxCount).addGrades();
+                    students[studentIndex] = new Student.StudentBuilder("Student " + (studentIndex + 1))
+                            .group(group)
+                            .grades(new GradeTable(subjectsForGroup[i * facultyCount + j], gradeMaxCount).addGrades())
+                            .build();
                 }
             }
         }
@@ -73,15 +72,15 @@ public class Main {
     
     public static void printStudentsGrades(){
         for (int i = 0; i < studentCountAll; i++) {
-            System.out.println(students[i].studentName);
-            students[i].grades.printGrades();
+            System.out.println(students[i].getStudentName());
+            students[i].getGrades().printGrades();
             System.out.println();
         }
     }
 
     private static void calculateAndPrintMeanGrades() {
-        String curFacultyName = students[0].group.facultyName;
-        String curGroupName = students[0].group.groupName;
+        String curFacultyName = students[0].getGroup().facultyName;
+        String curGroupName = students[0].getGroup().groupName;
         int[][] currentSumAndCountOfGradesTableForStudent = new int[subjectsAllCount][2];
         int[][] currentSumAndCountOfGradesTableForGroup = new int[subjectsAllCount][2];
         int[][] currentSumAndCountOfGradesTableForFaculty = new int[subjectsAllCount][2];
@@ -91,7 +90,7 @@ public class Main {
 
         for (int i = 0; i < studentCountAll; i++) {
             //group changed
-            if (!curGroupName.equals(students[i].group.groupName)) {
+            if (!curGroupName.equals(students[i].getGroup().groupName)) {
                 for (int j = 0; j < subjectsAllCount; j++) {
                     if (currentSumAndCountOfGradesTableForGroup[j][1] != 0) {
                         avg = (double) currentSumAndCountOfGradesTableForGroup[j][0] / currentSumAndCountOfGradesTableForGroup[j][1];
@@ -100,10 +99,10 @@ public class Main {
                         currentSumAndCountOfGradesTableForGroup[j][1] = 0;
                     }
                 }
-                curGroupName = students[i].group.groupName;
+                curGroupName = students[i].getGroup().groupName;
             }
             //faculty changed
-            if (!curFacultyName.equals(students[i].group.facultyName)) {
+            if (!curFacultyName.equals(students[i].getGroup().facultyName)) {
                 for (int j = 0; j < subjectsAllCount; j++) {
                     if (currentSumAndCountOfGradesTableForFaculty[j][1] != 0) {
                         avg = (double) currentSumAndCountOfGradesTableForFaculty[j][0] / currentSumAndCountOfGradesTableForFaculty[j][1];
@@ -112,30 +111,30 @@ public class Main {
                         currentSumAndCountOfGradesTableForFaculty[j][1] = 0;
                     }
                 }
-                curFacultyName = students[i].group.facultyName;
+                curFacultyName = students[i].getGroup().facultyName;
             }
 
             //Adding grades to tables
-            for (int j = 0; j < students[i].group.subjects.length; j++) {
-                for (int k = 0; k < students[i].grades.gradeTable[j].length && students[i].grades.gradeTable[j][k] != -1; k++) {
+            for (int j = 0; j < students[i].getGroup().subjects.length; j++) {
+                for (int k = 0; k < students[i].getGrades().gradeTable[j].length && students[i].getGrades().gradeTable[j][k] != -1; k++) {
                     for (m = 0; m < subjectsAllCount; m++) {
-                        if (students[i].group.subjects[j].equals(subjectsAll[m])) {
+                        if (students[i].getGroup().subjects[j].equals(subjectsAll[m])) {
                             break;
                         }
                     }
-                    currentSumAndCountOfGradesTableForStudent[m][0] += students[i].grades.gradeTable[j][k];
+                    currentSumAndCountOfGradesTableForStudent[m][0] += students[i].getGrades().gradeTable[j][k];
                     ++currentSumAndCountOfGradesTableForStudent[m][1];
-                    currentSumAndCountOfGradesTableForGroup[m][0] += students[i].grades.gradeTable[j][k];
+                    currentSumAndCountOfGradesTableForGroup[m][0] += students[i].getGrades().gradeTable[j][k];
                     ++currentSumAndCountOfGradesTableForGroup[m][1];
-                    currentSumAndCountOfGradesTableForFaculty[m][0] += students[i].grades.gradeTable[j][k];
+                    currentSumAndCountOfGradesTableForFaculty[m][0] += students[i].getGrades().gradeTable[j][k];
                     ++currentSumAndCountOfGradesTableForFaculty[m][1];
-                    currentSumAndCountOfGradesTableForUniversity[m][0] += students[i].grades.gradeTable[j][k];
+                    currentSumAndCountOfGradesTableForUniversity[m][0] += students[i].getGrades().gradeTable[j][k];
                     ++currentSumAndCountOfGradesTableForUniversity[m][1];
                 }
                 for (int jj = 0; jj < subjectsAllCount; jj++) {
                     if (currentSumAndCountOfGradesTableForStudent[jj][1] != 0) {
                         avg = (double) currentSumAndCountOfGradesTableForStudent[jj][0] / currentSumAndCountOfGradesTableForStudent[jj][1];
-                        System.out.println(students[i].studentName + " mean grade from subject " + subjectsAll[j] + avg);
+                        System.out.println(students[i].getStudentName() + " mean grade from subject " + subjectsAll[j] + avg);
                         currentSumAndCountOfGradesTableForStudent[jj][0] = 0;
                         currentSumAndCountOfGradesTableForStudent[jj][1] = 0;
                     }
