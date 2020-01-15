@@ -81,10 +81,10 @@ public class Main {
     private static void calculateAndPrintMeanGrades() {
         String curFacultyName = students[0].getGroup().facultyName;
         String curGroupName = students[0].getGroup().groupName;
-        int[][] currentSumAndCountOfGradesTableForStudent = new int[subjectsAllCount][2];
-        int[][] currentSumAndCountOfGradesTableForGroup = new int[subjectsAllCount][2];
-        int[][] currentSumAndCountOfGradesTableForFaculty = new int[subjectsAllCount][2];
-        int[][] currentSumAndCountOfGradesTableForUniversity = new int[subjectsAllCount][2];
+        int[][] currentSumAndCountOfGradesForStudent = new int[subjectsAllCount][2];
+        int[][] currentSumAndCountOfGradesForGroup = new int[subjectsAllCount][2];
+        int[][] currentSumAndCountOfGradesForFaculty = new int[subjectsAllCount][2];
+        int[][] currentSumAndCountOfGradesForUniversity = new int[subjectsAllCount][2];
         double avg;
         int m;
 
@@ -92,11 +92,11 @@ public class Main {
             //group changed
             if (!curGroupName.equals(students[i].getGroup().groupName)) {
                 for (int j = 0; j < subjectsAllCount; j++) {
-                    if (currentSumAndCountOfGradesTableForGroup[j][1] != 0) {
-                        avg = (double) currentSumAndCountOfGradesTableForGroup[j][0] / currentSumAndCountOfGradesTableForGroup[j][1];
+                    if (currentSumAndCountOfGradesForGroup[j][1] != 0) {
+                        avg = (double) currentSumAndCountOfGradesForGroup[j][0] / currentSumAndCountOfGradesForGroup[j][1];
                         System.out.println(curGroupName + " mean grade from subject " + subjectsAll[j] + avg);
-                        currentSumAndCountOfGradesTableForGroup[j][0] = 0;
-                        currentSumAndCountOfGradesTableForGroup[j][1] = 0;
+                        currentSumAndCountOfGradesForGroup[j][0] = 0;
+                        currentSumAndCountOfGradesForGroup[j][1] = 0;
                     }
                 }
                 curGroupName = students[i].getGroup().groupName;
@@ -104,11 +104,11 @@ public class Main {
             //faculty changed
             if (!curFacultyName.equals(students[i].getGroup().facultyName)) {
                 for (int j = 0; j < subjectsAllCount; j++) {
-                    if (currentSumAndCountOfGradesTableForFaculty[j][1] != 0) {
-                        avg = (double) currentSumAndCountOfGradesTableForFaculty[j][0] / currentSumAndCountOfGradesTableForFaculty[j][1];
+                    if (currentSumAndCountOfGradesForFaculty[j][1] != 0) {
+                        avg = (double) currentSumAndCountOfGradesForFaculty[j][0] / currentSumAndCountOfGradesForFaculty[j][1];
                         System.out.println(curFacultyName + " mean grade from subject " + subjectsAll[j] + avg);
-                        currentSumAndCountOfGradesTableForFaculty[j][0] = 0;
-                        currentSumAndCountOfGradesTableForFaculty[j][1] = 0;
+                        currentSumAndCountOfGradesForFaculty[j][0] = 0;
+                        currentSumAndCountOfGradesForFaculty[j][1] = 0;
                     }
                 }
                 curFacultyName = students[i].getGroup().facultyName;
@@ -122,21 +122,21 @@ public class Main {
                             break;
                         }
                     }
-                    currentSumAndCountOfGradesTableForStudent[m][0] += students[i].getGrades().gradeTable[j][k];
-                    ++currentSumAndCountOfGradesTableForStudent[m][1];
-                    currentSumAndCountOfGradesTableForGroup[m][0] += students[i].getGrades().gradeTable[j][k];
-                    ++currentSumAndCountOfGradesTableForGroup[m][1];
-                    currentSumAndCountOfGradesTableForFaculty[m][0] += students[i].getGrades().gradeTable[j][k];
-                    ++currentSumAndCountOfGradesTableForFaculty[m][1];
-                    currentSumAndCountOfGradesTableForUniversity[m][0] += students[i].getGrades().gradeTable[j][k];
-                    ++currentSumAndCountOfGradesTableForUniversity[m][1];
+                    currentSumAndCountOfGradesForStudent[m][0] += students[i].getGrades().gradeTable[j][k];
+                    ++currentSumAndCountOfGradesForStudent[m][1];
+                    currentSumAndCountOfGradesForGroup[m][0] += students[i].getGrades().gradeTable[j][k];
+                    ++currentSumAndCountOfGradesForGroup[m][1];
+                    currentSumAndCountOfGradesForFaculty[m][0] += students[i].getGrades().gradeTable[j][k];
+                    ++currentSumAndCountOfGradesForFaculty[m][1];
+                    currentSumAndCountOfGradesForUniversity[m][0] += students[i].getGrades().gradeTable[j][k];
+                    ++currentSumAndCountOfGradesForUniversity[m][1];
                 }
                 for (int jj = 0; jj < subjectsAllCount; jj++) {
-                    if (currentSumAndCountOfGradesTableForStudent[jj][1] != 0) {
-                        avg = (double) currentSumAndCountOfGradesTableForStudent[jj][0] / currentSumAndCountOfGradesTableForStudent[jj][1];
+                    if (currentSumAndCountOfGradesForStudent[jj][1] != 0) {
+                        avg = (double) currentSumAndCountOfGradesForStudent[jj][0] / currentSumAndCountOfGradesForStudent[jj][1];
                         System.out.println(students[i].getStudentName() + " mean grade from subject " + subjectsAll[j] + avg);
-                        currentSumAndCountOfGradesTableForStudent[jj][0] = 0;
-                        currentSumAndCountOfGradesTableForStudent[jj][1] = 0;
+                        currentSumAndCountOfGradesForStudent[jj][0] = 0;
+                        currentSumAndCountOfGradesForStudent[jj][1] = 0;
                     }
                 }
             }
@@ -144,29 +144,29 @@ public class Main {
         }
         //last group
         for (int j = 0; j < subjectsAllCount; j++) {
-            if (currentSumAndCountOfGradesTableForGroup[j][1] != 0) {
-                avg = (double) currentSumAndCountOfGradesTableForGroup[j][0] / currentSumAndCountOfGradesTableForGroup[j][1];
+            if (currentSumAndCountOfGradesForGroup[j][1] != 0) {
+                avg = (double) currentSumAndCountOfGradesForGroup[j][0] / currentSumAndCountOfGradesForGroup[j][1];
                 System.out.println(curGroupName + " mean grade from subject " + subjectsAll[j] + avg);
-                currentSumAndCountOfGradesTableForGroup[j][0] = 0;
-                currentSumAndCountOfGradesTableForGroup[j][1] = 0;
+                currentSumAndCountOfGradesForGroup[j][0] = 0;
+                currentSumAndCountOfGradesForGroup[j][1] = 0;
             }
         }
         //last faculty
         for (int j = 0; j < subjectsAllCount; j++) {
-            if (currentSumAndCountOfGradesTableForFaculty[j][1] != 0) {
-                avg = (double) currentSumAndCountOfGradesTableForFaculty[j][0] / currentSumAndCountOfGradesTableForFaculty[j][1];
+            if (currentSumAndCountOfGradesForFaculty[j][1] != 0) {
+                avg = (double) currentSumAndCountOfGradesForFaculty[j][0] / currentSumAndCountOfGradesForFaculty[j][1];
                 System.out.println(curFacultyName + " mean grade from subject " + subjectsAll[j] + avg);
-                currentSumAndCountOfGradesTableForFaculty[j][0] = 0;
-                currentSumAndCountOfGradesTableForFaculty[j][1] = 0;
+                currentSumAndCountOfGradesForFaculty[j][0] = 0;
+                currentSumAndCountOfGradesForFaculty[j][1] = 0;
             }
         }
         //uni
         for (int j = 0; j < subjectsAllCount; j++) {
-            if (currentSumAndCountOfGradesTableForUniversity[j][1] != 0) {
-                avg = (double) currentSumAndCountOfGradesTableForUniversity[j][0] / currentSumAndCountOfGradesTableForUniversity[j][1];
+            if (currentSumAndCountOfGradesForUniversity[j][1] != 0) {
+                avg = (double) currentSumAndCountOfGradesForUniversity[j][0] / currentSumAndCountOfGradesForUniversity[j][1];
                 System.out.println(universityName + " mean grade from subject " + subjectsAll[j] + avg);
-                currentSumAndCountOfGradesTableForUniversity[j][0] = 0;
-                currentSumAndCountOfGradesTableForUniversity[j][1] = 0;
+                currentSumAndCountOfGradesForUniversity[j][0] = 0;
+                currentSumAndCountOfGradesForUniversity[j][1] = 0;
             }
         }
     }
