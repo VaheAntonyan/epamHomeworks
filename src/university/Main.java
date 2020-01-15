@@ -79,8 +79,8 @@ public class Main {
     }
 
     private static void calculateAndPrintMeanGrades() {
-        String curFacultyName = students[0].getGroup().facultyName;
-        String curGroupName = students[0].getGroup().groupName;
+        String curFacultyName = students[0].getGroup().getFacultyName();
+        String curGroupName = students[0].getGroup().getGroupName();
         int[][] currentSumAndCountOfGradesForStudent = new int[subjectsAllCount][2];
         int[][] currentSumAndCountOfGradesForGroup = new int[subjectsAllCount][2];
         int[][] currentSumAndCountOfGradesForFaculty = new int[subjectsAllCount][2];
@@ -90,7 +90,7 @@ public class Main {
 
         for (int i = 0; i < studentCountAll; i++) {
             //group changed
-            if (!curGroupName.equals(students[i].getGroup().groupName)) {
+            if (!curGroupName.equals(students[i].getGroup().getGroupName())) {
                 for (int j = 0; j < subjectsAllCount; j++) {
                     if (currentSumAndCountOfGradesForGroup[j][1] != 0) {
                         avg = (double) currentSumAndCountOfGradesForGroup[j][0] / currentSumAndCountOfGradesForGroup[j][1];
@@ -99,10 +99,10 @@ public class Main {
                         currentSumAndCountOfGradesForGroup[j][1] = 0;
                     }
                 }
-                curGroupName = students[i].getGroup().groupName;
+                curGroupName = students[i].getGroup().getGroupName();
             }
             //faculty changed
-            if (!curFacultyName.equals(students[i].getGroup().facultyName)) {
+            if (!curFacultyName.equals(students[i].getGroup().getFacultyName())) {
                 for (int j = 0; j < subjectsAllCount; j++) {
                     if (currentSumAndCountOfGradesForFaculty[j][1] != 0) {
                         avg = (double) currentSumAndCountOfGradesForFaculty[j][0] / currentSumAndCountOfGradesForFaculty[j][1];
@@ -111,14 +111,14 @@ public class Main {
                         currentSumAndCountOfGradesForFaculty[j][1] = 0;
                     }
                 }
-                curFacultyName = students[i].getGroup().facultyName;
+                curFacultyName = students[i].getGroup().getFacultyName();
             }
 
             //Adding grades to tables
-            for (int j = 0; j < students[i].getGroup().subjects.length; j++) {
+            for (int j = 0; j < students[i].getGroup().getSubjects().length; j++) {
                 for (int k = 0; k < students[i].getGrades().gradeTable[j].length && students[i].getGrades().gradeTable[j][k] != -1; k++) {
                     for (m = 0; m < subjectsAllCount; m++) {
-                        if (students[i].getGroup().subjects[j].equals(subjectsAll[m])) {
+                        if (students[i].getGroup().getSubjects()[j].equals(subjectsAll[m])) {
                             break;
                         }
                     }
