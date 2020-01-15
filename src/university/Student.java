@@ -1,4 +1,4 @@
-package University;
+package university;
 
 public class Student {
     String studentName;

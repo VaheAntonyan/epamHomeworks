@@ -1,4 +1,4 @@
-package University;
+package university;
 
 import java.util.Random;
 
