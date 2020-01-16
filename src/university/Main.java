@@ -1,6 +1,6 @@
 package university;
 
-import university.myExeptions.GradeExeption;
+import university.myExceptions.GradeException;
 
 import java.util.Random;
 
@@ -68,7 +68,7 @@ public class Main {
                                 .group(group)
                                 .grades(new GradeTable(subjectsForGroup[i * facultyCount + j], gradeMaxCount).addGrades())
                                 .build();
-                    } catch (GradeExeption gradeExeption) {
+                    } catch (GradeException gradeExeption) {
                         gradeExeption.printStackTrace();
                     }
                 }

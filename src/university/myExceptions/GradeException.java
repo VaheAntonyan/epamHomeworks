@@ -1,11 +1,11 @@
-package university.myExeptions;
+package university.myExceptions;
 
 import university.Constants;
 
-public class GradeExeption extends Exception {
+public class GradeException extends Exception {
     private int grade;
 
-    public GradeExeption(int grade) {
+    public GradeException(int grade) {
         this.grade = grade;
     }
 

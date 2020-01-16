@@ -1,6 +1,6 @@
 package university;
 
-import university.myExeptions.GradeExeption;
+import university.myExceptions.GradeException;
 
 import java.util.Random;
 
@@ -30,13 +30,13 @@ public class GradeTable {
         }
     }
 
-    public GradeTable addGrades() throws GradeExeption {
+    public GradeTable addGrades() throws GradeException {
         Random ran = new Random();
         for (int i = 0; i < subjects.length; i++) {
             for (int j = 0; j < gradeMaxCount - ran.nextInt(3); j++) {
                 int grade = ran.nextInt(11);
                 if (grade > Constants.MAX_GRADE || Constants.MIN_GRADE < 0) {
-                    throw new GradeExeption(grade);
+                    throw new GradeException(grade);
                 }
                 gradeTable[i][j] = grade;
             }
