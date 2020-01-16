@@ -36,7 +36,7 @@ public class GradeTable {
             for (int j = 0; j < gradeMaxCount - ran.nextInt(3); j++) {
                 int grade = ran.nextInt(11);
                 if (grade > Constants.MAX_GRADE || Constants.MIN_GRADE < 0) {
-                    throw new GradeException(grade);
+                    throw new GradeException("Invalid Grade: Grade must be between [" + Constants.MIN_GRADE + ", " + Constants.MAX_GRADE + "]: Provided grade: " + grade);
                 }
                 gradeTable[i][j] = grade;
             }
