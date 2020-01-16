@@ -35,7 +35,7 @@ public class GradeTable {
         for (int i = 0; i < subjects.length; i++) {
             for (int j = 0; j < gradeMaxCount - ran.nextInt(3); j++) {
                 int grade = ran.nextInt(11);
-                if (grade > 10 || grade < 0) {
+                if (grade > Constants.MAX_GRADE || Constants.MIN_GRADE < 0) {
                     throw new GradeExeption(grade);
                 }
                 gradeTable[i][j] = grade;

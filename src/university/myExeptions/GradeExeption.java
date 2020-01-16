@@ -1,5 +1,7 @@
 package university.myExeptions;
 
+import university.Constants;
+
 public class GradeExeption extends Exception {
     private int grade;
 
@@ -9,6 +11,6 @@ public class GradeExeption extends Exception {
 
     @Override
     public String toString() {
-        return "Invalid Grade: Grade must be between [0, 10]: Your grade: " + grade;
+        return "Invalid Grade: Grade must be between [" + Constants.MIN_GRADE + ", " + Constants.MAX_GRADE + "]: Your grade: " + grade;
     }
 }
