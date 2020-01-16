@@ -11,6 +11,6 @@ public class GradeException extends Exception {
 
     @Override
     public String toString() {
-        return "Invalid Grade: Grade must be between [" + Constants.MIN_GRADE + ", " + Constants.MAX_GRADE + "]: Your grade: " + grade;
+        return "Invalid Grade: Grade must be between [" + Constants.MIN_GRADE + ", " + Constants.MAX_GRADE + "]: Provided grade: " + grade;
     }
 }
