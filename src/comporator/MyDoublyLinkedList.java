@@ -1,24 +1,27 @@
 package comporator;
 
-public class MyDoublyLinkedList {
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+
+public class MyDoublyLinkedList<T> implements Iterable<T>{
     private Node head;
     private Node tail;
     private int size;
 
     private class Node {
-        Student student;
+        T data;
         Node next;
         Node prev;
 
-        public Node(Student student, Node next, Node prev) {
-            this.student = student;
+        public Node(T data, Node next, Node prev) {
+            this.data = data;
             this.next = next;
             this.prev = prev;
         }
     }
 
-    public void push(Student student) {
-        Node newHeadNode = new Node(student, head, null);
+    public void push(T data) {
+        Node newHeadNode = new Node(data, head, null);
         if (head != null) {
             head.prev = newHeadNode;
         }
@@ -29,21 +32,20 @@ public class MyDoublyLinkedList {
         ++size;
     }
 
-    public Student pop() {
+    public T pop() {
         if (size == 0) {
-            System.out.println("MyDoublyLinkedList is empty");
-            return null;
+            throw new NoSuchElementException();
         }
-        Node oldFirstNode = head;
+        Node oldHeadNode = head;
         head = head.next;
         if (head != null)
             head.prev = null;
         --size;
-        return oldFirstNode.student;
+        return oldHeadNode.data;
     }
 
-    public boolean addLast(Student student) {
-        Node newTailNode = new Node(student, null, tail);
+    public boolean addLast(T data) {
+        Node newTailNode = new Node(data, null, tail);
         if (tail != null) {
             tail.next = newTailNode;
         }
@@ -55,19 +57,45 @@ public class MyDoublyLinkedList {
         return true;
     }
 
-    public Student removeLast() {
+    public T removeLast() {
         if (size == 0) {
-            System.out.println("MyDoublyLinkedList is empty");
-            return null;
+            throw new NoSuchElementException();
         }
         Node oldTailNode = tail;
         tail = tail.prev;
         tail.next = null;
         --size;
-        return oldTailNode.student;
+        return oldTailNode.data;
     }
 
     public int size() {
         return size;
+    }
+
+    public Node getHead() {
+        return head;
+    }
+
+    public Node getTail() {
+        return tail;
+    }
+
+
+    @Override
+    public Iterator<T> iterator() {
+        return new Iterator<T>() {
+            Node current = getHead();
+            @Override
+            public boolean hasNext() {
+                return current != null;
+            }
+
+            @Override
+            public T next() {
+                T data = current.data;
+                current = current.next;
+                return data;
+            }
+        };
     }
 }

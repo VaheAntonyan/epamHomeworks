@@ -1,12 +1,12 @@
 package comporator;
 
 public class Helper {
-    MyDynamicArray myDynamicArray;
-    MyDoublyLinkedList myDoublyLinkedList;
+    MyDynamicArray<Student> myDynamicArray;
+    MyDoublyLinkedList<Student> myDoublyLinkedList;
 
     void initialize() {
-        myDynamicArray = new MyDynamicArray();
-        myDoublyLinkedList = new MyDoublyLinkedList();
+        myDynamicArray = new MyDynamicArray<>();
+        myDoublyLinkedList = new MyDoublyLinkedList<>();
 
         Student s1 = new Student("Arman", "Karapetyan", 18);
         Student s2 = new Student("Arman", "Hakobyan", 20);
@@ -26,15 +26,12 @@ public class Helper {
 
     void printInfo() {
         printDynamicArrayInfo();
-        printLinkedListInfo();
+        printDoublyLinkedListInfo();
     }
 
-    private void printLinkedListInfo() {
+    private void printDoublyLinkedListInfo() {
         System.out.println("\nStudents' first and last name in myDoublyLinkedList.");
-        Student st;
-        int size = myDoublyLinkedList.size();
-        for (int i = 0; i < size; i++) {
-            st = myDoublyLinkedList.pop();
+        for (Student st: myDoublyLinkedList) {
             System.out.println(st.firstName + " " + st.lastName);
         }
     }

@@ -2,41 +2,41 @@ package comporator;
 
 import java.util.Arrays;
 
-public class MyDynamicArray {
+public class MyDynamicArray<T> {
     private int capacity;
     private static final int CAPACITY = 10;
-    private Student[] studentArray;
+    private T[] myDynamicArray;
     private int last = -1;
 
     public MyDynamicArray() {
         this(CAPACITY);
     }
 
+    @SuppressWarnings("unchecked")
     public MyDynamicArray(int capacity) {
         this.capacity = capacity;
-        studentArray = new Student[capacity];
+        myDynamicArray = (T[])new Object[capacity];
     }
 
     private void doubleCapacity() {
         capacity *= 2;
-        studentArray = Arrays.copyOf(studentArray, capacity);
+        myDynamicArray = Arrays.copyOf(myDynamicArray, capacity);
     }
 
-    public boolean add(Student s) {
+    public void add(T s) {
         if (size() == capacity)
             doubleCapacity();
-        studentArray[++last] = s;
-        return true;
+        myDynamicArray[++last] = s;
     }
 
-    public boolean remove(Student s) {
+    public boolean remove(T s) {
         boolean succeeds = false;
         for (int i = 0; i <= last; ++i) {
-            if (studentArray[i] == s) {
+            if (myDynamicArray[i] == s) {
                 while (i < last) {
-                    studentArray[i] = studentArray[++i];
+                    myDynamicArray[i] = myDynamicArray[++i];
                 }
-                studentArray = Arrays.copyOf(studentArray, i);
+                myDynamicArray = Arrays.copyOf(myDynamicArray, i);
                 succeeds = true;
                 --last;
                 break;
@@ -49,10 +49,10 @@ public class MyDynamicArray {
         return (last + 1);
     }
 
-    public Student get(int index) {
-        Student st = null;
-        if (index >= 0 && index <= studentArray.length)
-            st = studentArray[index];
+    public T get(int index) {
+        T st = null;
+        if (index >= 0 && index <= myDynamicArray.length)
+            st = myDynamicArray[index];
         return st;
     }
 }
