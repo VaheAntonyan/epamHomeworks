@@ -13,7 +13,7 @@ public class Program {
 
     private static void task5() {
         System.out.println("\n\nTask 5");
-        Helper h = new Helper();
+        MyCollectionsHelper h = new MyCollectionsHelper();
         h.initialize();
         h.printInfo();
     }

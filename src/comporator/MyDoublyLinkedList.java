@@ -72,19 +72,10 @@ public class MyDoublyLinkedList<T> implements Iterable<T>{
         return size;
     }
 
-    public Node getHead() {
-        return head;
-    }
-
-    public Node getTail() {
-        return tail;
-    }
-
-
     @Override
     public Iterator<T> iterator() {
         return new Iterator<T>() {
-            Node current = getHead();
+            Node current = head;
             @Override
             public boolean hasNext() {
                 return current != null;

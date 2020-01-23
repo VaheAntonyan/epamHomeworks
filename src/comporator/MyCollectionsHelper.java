@@ -1,6 +1,6 @@
 package comporator;
 
-public class Helper {
+public class MyCollectionsHelper {
     MyDynamicArray<Student> myDynamicArray;
     MyDoublyLinkedList<Student> myDoublyLinkedList;
 
