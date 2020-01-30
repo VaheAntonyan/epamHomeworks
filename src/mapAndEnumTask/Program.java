@@ -1,8 +1,5 @@
 package mapAndEnumTask;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.HashMap;
 import java.util.Map;
@@ -14,65 +11,14 @@ public class Program {
         task2();
     }
 
-    enum Month {
-        JANUARY,
-        FEBRUARY,
-        MARCH,
-        APRIL,
-        MAY,
-        JUNE,
-        JULY,
-        AUGUST,
-        SEPTEMBER,
-        OCTOBER,
-        NOVEMBER,
-        DECEMBER;
-
-        public int length(boolean leapYear) {
-            switch (this) {
-                case FEBRUARY:
-                    return leapYear ? 29 : 28;
-                case APRIL:
-                case JUNE:
-                case SEPTEMBER:
-                case NOVEMBER:
-                    return 30;
-                default:
-                    return 31;
-            }
-        }
-
-        public ArrayList<Integer> holidays() {
-            switch (this) {
-                case JANUARY:
-                    return new ArrayList<Integer>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 28));
-                case MARCH:
-                    return new ArrayList<Integer>(Collections.singletonList(8));
-                case APRIL:
-                    return new ArrayList<Integer>(Arrays.asList(24, 25));
-                case MAY:
-                    return new ArrayList<Integer>(Arrays.asList(1, 9, 28));
-                case JULY:
-                    return new ArrayList<Integer>(Collections.singletonList(5));
-                case SEPTEMBER:
-                    return new ArrayList<Integer>(Collections.singletonList(21));
-                case DECEMBER:
-                    return new ArrayList<Integer>(Collections.singletonList(31));
-                default:
-                    return new ArrayList<Integer>(Collections.emptyList());
-
-            }
-        }
-    }
-
     private static void task2() {
         boolean leapYear = true;
 
         //holidays of April
-        System.out.printf("Holidays of April: %s%n", Month.APRIL.holidays());
+        System.out.printf("Holidays of April: %s%n", Month.APRIL.getHolidays());
 
         //days count of March
-        System.out.printf("Days count of March: %d%n", Month.MARCH.length(leapYear));
+        System.out.printf("Days count of March: %d%n", Month.MARCH.getDaysCount());
 
         //traverse and print all month's names.
         traverseAndPrintMonthNames();
@@ -87,7 +33,7 @@ public class Program {
     }
 
     private static boolean isPublicHoliday(Month month, int day) {
-        return month.holidays().contains(day);
+        return month.getHolidays().contains(day);
     }
 
     private static void traverseAndPrintMonthNames() {
