@@ -36,7 +36,7 @@ public class MyDynamicArray<T> {
                 while (i < last) {
                     myDynamicArray[i] = myDynamicArray[++i];
                 }
-                myDynamicArray[--last] = null;
+                myDynamicArray[last--] = null;
                 succeeds = true;
                 break;
             }
