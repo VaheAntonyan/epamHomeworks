@@ -1,11 +1,9 @@
 package mapandenumtask;
 
 import mapandenumtask.myexceptions.DayException;
+import mapandenumtask.myexceptions.Faculty;
 
-import java.util.List;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.LinkedList;
+import java.util.*;
 
 public class Program {
     public static void main(String[] args) {
@@ -54,22 +52,22 @@ public class Program {
     }
 
     private static void task1b(List<Student> students) {
-        HashMap<String, Integer> hashMap = getStudentsCountByFacultyMap(students);
-        printFacultyAndStudentCount(hashMap);
+        EnumMap<Faculty, Integer> enumMap = getStudentsCountByFacultyMap(students);
+        printFacultyAndStudentCount(enumMap);
     }
 
-    private static void printFacultyAndStudentCount(HashMap<String, Integer> hashMap) {
-        for (Map.Entry<String, Integer> entry : hashMap.entrySet()) {
+    private static void printFacultyAndStudentCount(EnumMap<Faculty, Integer> enumMap) {
+        for (Map.Entry<Faculty, Integer> entry : enumMap.entrySet()) {
             System.out.println(entry.getKey() + " " + entry.getValue());
         }
     }
 
-    private static HashMap<String, Integer> getStudentsCountByFacultyMap(List<Student> students) {
-        HashMap<String, Integer> hashMap = new HashMap<>();
+    private static EnumMap<Faculty, Integer> getStudentsCountByFacultyMap(List<Student> students) {
+        EnumMap<Faculty, Integer> enumMap = new EnumMap<Faculty, Integer>(Faculty.class);
         for (Student st : students) {
-            hashMap.put(st.getFaculty(), hashMap.containsKey(st.getFaculty()) ? hashMap.get(st.getFaculty()) + 1 : 1);
+            enumMap.put(st.getFaculty(), enumMap.containsKey(st.getFaculty()) ? enumMap.get(st.getFaculty()) + 1 : 1);
         }
-        return hashMap;
+        return enumMap;
     }
 
     private static void task1a(List<Student> students) {
@@ -84,12 +82,12 @@ public class Program {
     }
 
     private static void initializeListOfStudents(List<Student> students) {
-        students.add(new Student("Diana", "Asatryan", 22, "0988111111", "Math"));
-        students.add(new Student("Diana", "Asatryan", 32, "0922111111", "Physics"));
-        students.add(new Student("Diana", "Asatryan", 21, "0938111111", "Philosophy"));
-        students.add(new Student("Karen", "Balayan", 12, "097777777", "Math"));
-        students.add(new Student("Karen", "Balayan", 23, "098888811", "Philosophy"));
-        students.add(new Student("Elen", "Mirzoyan", 12, "093333333", "English"));
+        students.add(new Student("Diana", "Asatryan", 22, "0988111111", Faculty.MATH));
+        students.add(new Student("Diana", "Asatryan", 32, "0922111111", Faculty.PHYSICS));
+        students.add(new Student("Diana", "Asatryan", 21, "0938111111", Faculty.PHILOSOPHY));
+        students.add(new Student("Karen", "Balayan", 12, "097777777", Faculty.MATH));
+        students.add(new Student("Karen", "Balayan", 23, "098888811", Faculty.PHILOSOPHY));
+        students.add(new Student("Elen", "Mirzoyan", 12, "093333333", Faculty.ENGLISH));
     }
 
     private static HashMap<Student, Integer> getStudentsMap(List<Student> students) {

@@ -1,5 +1,7 @@
 package mapandenumtask;
 
+import mapandenumtask.myexceptions.Faculty;
+
 import java.util.Objects;
 
 public class Student {
@@ -7,9 +9,9 @@ public class Student {
     private String lastName;
     private int age;
     private String phoneNumber;
-    private String faculty;
+    private Faculty faculty;
 
-    public Student(String firstName, String lastName, int age, String phoneNumber, String faculty) {
+    public Student(String firstName, String lastName, int age, String phoneNumber, Faculty faculty) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.age = age;
@@ -33,7 +35,7 @@ public class Student {
         return phoneNumber;
     }
 
-    public String getFaculty() {
+    public Faculty getFaculty() {
         return faculty;
     }
 
