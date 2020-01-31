@@ -3,7 +3,11 @@ package mapandenumtask;
 import mapandenumtask.myexceptions.DayException;
 import mapandenumtask.myexceptions.Faculty;
 
-import java.util.*;
+import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.LinkedList;
+import java.util.EnumMap;
 
 public class Program {
     public static void main(String[] args) {
