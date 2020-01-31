@@ -1,4 +1,4 @@
-package mapAndEnumTask;
+package mapandenumtask;
 
 import java.util.Objects;
 

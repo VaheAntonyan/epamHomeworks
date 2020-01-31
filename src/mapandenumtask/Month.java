@@ -1,6 +1,6 @@
-package mapAndEnumTask;
+package mapandenumtask;
 
-import mapAndEnumTask.myExceptions.DayException;
+import mapandenumtask.myexceptions.DayException;
 
 import java.util.ArrayList;
 import java.util.Arrays;

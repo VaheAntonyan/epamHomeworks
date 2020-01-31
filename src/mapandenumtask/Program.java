@@ -1,6 +1,6 @@
-package mapAndEnumTask;
+package mapandenumtask;
 
-import mapAndEnumTask.myExceptions.DayException;
+import mapandenumtask.myexceptions.DayException;
 
 import java.util.List;
 import java.util.HashMap;
@@ -14,8 +14,6 @@ public class Program {
     }
 
     private static void task2() {
-        boolean leapYear = true;
-
         //holidays of April
         System.out.printf("Holidays of April: %s%n", Month.APRIL.getHolidays());
 
