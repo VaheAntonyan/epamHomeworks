@@ -36,9 +36,8 @@ public class MyDynamicArray<T> {
                 while (i < last) {
                     myDynamicArray[i] = myDynamicArray[++i];
                 }
-                myDynamicArray = Arrays.copyOf(myDynamicArray, i);
+                myDynamicArray[last--] = null;
                 succeeds = true;
-                --last;
                 break;
             }
         }
