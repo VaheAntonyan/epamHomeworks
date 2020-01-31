@@ -1,5 +1,7 @@
 package mapAndEnumTask;
 
+import mapAndEnumTask.myExceptions.DayException;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -32,5 +34,11 @@ public enum Month {
 
     public int getDaysCount() {
         return daysCount;
+    }
+
+    public static boolean isPublicHoliday(Month month, int day) throws DayException {
+        if (day < 0 || day > month.daysCount)
+            throw new DayException(month.daysCount, day);
+        return month.getHolidays().contains(day);
     }
 }

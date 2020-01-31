@@ -1,5 +1,7 @@
 package mapAndEnumTask;
 
+import mapAndEnumTask.myExceptions.DayException;
+
 import java.util.List;
 import java.util.HashMap;
 import java.util.Map;
@@ -24,16 +26,20 @@ public class Program {
         traverseAndPrintMonthNames();
 
         //check if March 21 and March 8 are public holidays
-        printPublicHoliday(Month.MARCH, 21);
-        printPublicHoliday(Month.MARCH, 8);
+        try {
+            printPublicHoliday(Month.MARCH, 21);
+        } catch (DayException e) {
+            e.printStackTrace();
+        }
+        try {
+            printPublicHoliday(Month.MARCH, 8);
+        } catch (DayException e) {
+            e.printStackTrace();
+        }
     }
 
-    private static void printPublicHoliday(Month month, int day) {
-        System.out.printf("Is %s %d a public holiday : %b%n", month, day, isPublicHoliday(month, day));
-    }
-
-    private static boolean isPublicHoliday(Month month, int day) {
-        return month.getHolidays().contains(day);
+    private static void printPublicHoliday(Month month, int day) throws DayException {
+        System.out.printf("Is %s %d a public holiday : %b%n", month, day, Month.isPublicHoliday(month, day));
     }
 
     private static void traverseAndPrintMonthNames() {
