@@ -1,6 +1,6 @@
 package mapandenumtask;
 
-import mapandenumtask.myexceptions.Faculty;
+import mapandenumtask.Faculty;
 
 import java.util.Objects;
 
