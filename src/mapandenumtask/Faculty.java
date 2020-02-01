@@ -1,4 +1,4 @@
-package mapandenumtask.myexceptions;
+package mapandenumtask;
 
 public enum Faculty {
     MATH,
