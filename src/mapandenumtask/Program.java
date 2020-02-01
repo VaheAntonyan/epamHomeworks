@@ -1,7 +1,6 @@
 package mapandenumtask;
 
 import mapandenumtask.myexceptions.DayException;
-import mapandenumtask.Faculty;
 
 import java.util.List;
 import java.util.HashMap;
