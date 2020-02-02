@@ -1,7 +1,5 @@
 package mapandenumtask;
 
-import mapandenumtask.Faculty;
-
 import java.util.Objects;
 
 public class Student {
