@@ -1,18 +1,43 @@
 package sortedsettask;
 
+/**
+ * This class is (mostly) an implementation of Red-Black tree from
+ * "Introduction to Algorithms" book written by Thomas H. Cormen, Charles E. Leiserson, Ronald L. Rivest, Clifford Stein
+ * @see <a href="http://ressources.unisciel.fr/algoprog/s00aaroot/aa00module1/res/%5BCormen-AL2011%5DIntroduction_To_Algorithms-A3.pdf">"Introduction to Algorithms" book</a>
+ *
+ */
 public class RBTreeImplementation<T extends Comparable<T>> {
     private boolean isDuplicatesAllowed = true;
     private final Node<T> nil = new Node<>(null, Node.Color.BLACK);
     private Node<T> root = nil;
     private int size = 0;
 
+    /**
+     * Create an empty Red-Black tree.
+     * Duplicates are allowed by default.
+     */
     public RBTreeImplementation() {
     }
 
+    /**
+     * Create an empty Red-Black tree.
+     * Sets duplicates policy.
+     * @param isDuplicatesAllowed <code>true</code> Duplicates <b>are</b> allowed.
+     *                            <code>false</code> Duplicates <b>are not</b> allowed.
+     */
     public RBTreeImplementation(boolean isDuplicatesAllowed) {
         this.isDuplicatesAllowed = isDuplicatesAllowed;
     }
 
+    /**
+     * We change the pointer structure through rotation, which is a local operation in a search tree that preserves
+     * the binary-search-tree property. When we do a left rotation on a node x, we assume that its right child y is not nil;
+     * x may be any node in the tree whose right child is not nil. The left rotation “pivots” around the link from x to y.
+     * It makes y the new root of the subtree, with @param x as y’s left child and y’s left child as x’s right child.
+     * Both leftRotate and rightRotate run in O(1) time.
+     * Only  pointers  are  changed  by  a  rotation;  all  other attributes in a node remain the same.
+     * @param x
+     */
     private void leftRotate(Node<T> x) {
         Node<T> y = x.rightChild;
         x.rightChild = y.leftChild;
