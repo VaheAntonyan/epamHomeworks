@@ -8,35 +8,35 @@ public class Program {
     }
 
     private static void testGlasses() {
-        OrderedSetImplementation<Glasses> orderedSet = new OrderedSetImplementation<>();
-        orderedSet.add(new Glasses("Rectangle"));
-        orderedSet.add(new Glasses("Round"));
-        orderedSet.add(new Glasses("Oval"));
-        orderedSet.add(new Glasses("Browline"));
-        orderedSet.add(new Glasses("Square"));
-        orderedSet.add(new Glasses("Aviator"));
+        RBTreeImplementation<Glasses> rbTree = new RBTreeImplementation<>(false);
+        rbTree.add(new Glasses("Rectangle"));
+        rbTree.add(new Glasses("Round"));
+        rbTree.add(new Glasses("Oval"));
+        rbTree.add(new Glasses("Browline"));
+        rbTree.add(new Glasses("Square"));
+        rbTree.add(new Glasses("Aviator"));
 
-        orderedSet.print();
+        rbTree.print();
     }
 
     private static void testCoffee() {
-        OrderedSetImplementation<Coffee> orderedSet = new OrderedSetImplementation<>();
-        orderedSet.add(new Coffee("Americano"));
-        orderedSet.add(new Coffee("Espresso"));
-        orderedSet.add(new Coffee("Latte"));
-        orderedSet.add(new Coffee("Cappuccino"));
-        orderedSet.add(new Coffee("Glace"));
+        RBTreeImplementation<Coffee> rbTree = new RBTreeImplementation<>(false);
+        rbTree.add(new Coffee("Americano"));
+        rbTree.add(new Coffee("Espresso"));
+        rbTree.add(new Coffee("Latte"));
+        rbTree.add(new Coffee("Cappuccino"));
+        rbTree.add(new Coffee("Glace"));
 
-        orderedSet.print();
+        rbTree.print();
     }
 
     private static void testStudents() {
-        OrderedSetImplementation<Student> orderedSet = new OrderedSetImplementation<>();
-        orderedSet.add(new Student("Vahe", "Antonyan"));
-        orderedSet.add(new Student("Arman", "Antonyan"));
-        orderedSet.add(new Student("Arthur", "Antonyan"));
-        orderedSet.add(new Student("Alvard", "Ayvazyan"));
+        RBTreeImplementation<Student> rbTree = new RBTreeImplementation<>(false);
+        rbTree.add(new Student("Armen", "Sargsyan"));
+        rbTree.add(new Student("Narek", "Gasparyan"));
+        rbTree.add(new Student("Marine", "Gevorgyan"));
+        rbTree.add(new Student("Sahak", "Gevorgyan"));
 
-        orderedSet.print();
+        rbTree.print();
     }
 }

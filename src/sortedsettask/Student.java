@@ -5,6 +5,9 @@ public class Student implements Comparable<Student> {
     String lastName;
 
     public Student(String firstName, String lastName) {
+        if (firstName == null || lastName == null) {
+            throw new IllegalArgumentException();
+        }
         this.firstName = firstName;
         this.lastName = lastName;
     }

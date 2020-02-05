@@ -4,6 +4,9 @@ public class Glasses implements Comparable<Glasses> {
     String shape;
 
     public Glasses(String shape) {
+        if (shape == null) {
+            throw new IllegalArgumentException();
+        }
         this.shape = shape;
     }
 

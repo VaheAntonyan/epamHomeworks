@@ -4,6 +4,9 @@ public class Coffee implements Comparable<Coffee> {
     String type;
 
     public Coffee(String type) {
+        if (type == null) {
+            throw new IllegalArgumentException();
+        }
         this.type = type;
     }
 
