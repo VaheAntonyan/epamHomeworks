@@ -1,7 +1,7 @@
 package sortedsettask;
 
 public class Glasses implements Comparable<Glasses> {
-    String shape;
+    private String shape;
 
     public Glasses(String shape) {
         if (shape == null) {

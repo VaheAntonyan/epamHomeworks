@@ -1,12 +1,15 @@
 package sortedsettask;
 
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+
 /**
  * This class is (mostly) an implementation of Red-Black tree from
  * "Introduction to Algorithms" book written by Thomas H. Cormen, Charles E. Leiserson, Ronald L. Rivest, Clifford Stein
  *
  * @see <a href="http://ressources.unisciel.fr/algoprog/s00aaroot/aa00module1/res/%5BCormen-AL2011%5DIntroduction_To_Algorithms-A3.pdf">"Introduction to Algorithms" book</a>
  */
-public class RBTreeImplementation<T extends Comparable<T>> {
+public class RBTreeImplementation<T extends Comparable<T>> implements Iterable<T> {
     private boolean isDuplicatesAllowed = true;
     private final Node<T> nil = new Node<>(null, Node.Color.BLACK);
     private Node<T> root = nil;
@@ -348,6 +351,52 @@ public class RBTreeImplementation<T extends Comparable<T>> {
     public void print() {
         inOrderTreeWalk(root);
         System.out.println();
+    }
+
+    @Override
+    public Iterator<T> iterator() {
+        return new TreeIterator();
+    }
+
+    private class TreeIterator implements Iterator<T> {
+        private Node<T> next;
+
+        public TreeIterator() {
+            next = root;
+            if(next == nil)
+                return;
+
+            while (next.leftChild != nil)
+                next = next.leftChild;
+        }
+
+        public boolean hasNext(){
+            return next != nil;
+        }
+
+        public T next(){
+            if(!hasNext()) {
+                throw new NoSuchElementException();
+            }
+            Node<T> current = next;
+            if(next.rightChild != nil) {
+                next = next.rightChild;
+                while (next.leftChild != nil)
+                    next = next.leftChild;
+                return current.data;
+            }
+            while(true) {
+                if(next.parent == nil) {
+                    next = nil;
+                    return current.data;
+                }
+                if(next.parent.leftChild == next) {
+                    next = next.parent;
+                    return current.data;
+                }
+                next = next.parent;
+            }
+        }
     }
 
     /**

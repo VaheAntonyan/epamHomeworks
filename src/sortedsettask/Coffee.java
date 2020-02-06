@@ -1,7 +1,7 @@
 package sortedsettask;
 
 public class Coffee implements Comparable<Coffee> {
-    String type;
+    private String type;
 
     public Coffee(String type) {
         if (type == null) {

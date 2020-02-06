@@ -1,8 +1,8 @@
 package sortedsettask;
 
 public class Student implements Comparable<Student> {
-    String firstName;
-    String lastName;
+    private String firstName;
+    private String lastName;
 
     public Student(String firstName, String lastName) {
         if (firstName == null || lastName == null) {
