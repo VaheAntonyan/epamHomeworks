@@ -3,8 +3,8 @@ package sortedsettask;
 /**
  * This class is (mostly) an implementation of Red-Black tree from
  * "Introduction to Algorithms" book written by Thomas H. Cormen, Charles E. Leiserson, Ronald L. Rivest, Clifford Stein
- * @see <a href="http://ressources.unisciel.fr/algoprog/s00aaroot/aa00module1/res/%5BCormen-AL2011%5DIntroduction_To_Algorithms-A3.pdf">"Introduction to Algorithms" book</a>
  *
+ * @see <a href="http://ressources.unisciel.fr/algoprog/s00aaroot/aa00module1/res/%5BCormen-AL2011%5DIntroduction_To_Algorithms-A3.pdf">"Introduction to Algorithms" book</a>
  */
 public class RBTreeImplementation<T extends Comparable<T>> {
     private boolean isDuplicatesAllowed = true;
@@ -22,8 +22,9 @@ public class RBTreeImplementation<T extends Comparable<T>> {
     /**
      * Create an empty Red-Black tree.
      * Sets duplicates policy.
-     * @param isDuplicatesAllowed <code>true</code> Duplicates <b>are</b> allowed.
-     *                            <code>false</code> Duplicates <b>are not</b> allowed.
+     *
+     * @param isDuplicatesAllowed <code>true</code> if duplicates <b>are</b> allowed,
+     *                            <code>false</code> otherwise
      */
     public RBTreeImplementation(boolean isDuplicatesAllowed) {
         this.isDuplicatesAllowed = isDuplicatesAllowed;
@@ -32,10 +33,11 @@ public class RBTreeImplementation<T extends Comparable<T>> {
     /**
      * We change the pointer structure through rotation, which is a local operation in a search tree that preserves
      * the binary-search-tree property. When we do a left rotation on a node x, we assume that its right child y is not nil;
-     * x may be any node in the tree whose right child is not nil. The left rotation “pivots” around the link from x to y.
-     * It makes y the new root of the subtree, with @param x as y’s left child and y’s left child as x’s right child.
+     * x may be any node in the tree whose right child is not nil. The left rotation "pivots" around the link from x to y.
+     * It makes y the new root of the subtree, with @param x as y's left child and y's left child as x's right child.
      * Both leftRotate and rightRotate run in O(1) time.
      * Only  pointers  are  changed  by  a  rotation;  all  other attributes in a node remain the same.
+     *
      * @param x
      */
     private void leftRotate(Node<T> x) {
@@ -86,14 +88,10 @@ public class RBTreeImplementation<T extends Comparable<T>> {
             if (z.data.compareTo(x.data) < 0) {
                 x = x.leftChild;
             } else {
-                if (z.data.compareTo(x.data) > 0) {
-                    x = x.rightChild;
+                if (!isDuplicatesAllowed && z.data.compareTo(x.data) == 0) {
+                    return false;
                 } else {
-                    if (isDuplicatesAllowed) {
-                        x = x.rightChild;
-                    } else {
-                        return false;
-                    }
+                    x = x.rightChild;
                 }
             }
         }
@@ -284,6 +282,14 @@ public class RBTreeImplementation<T extends Comparable<T>> {
         return x;
     }
 
+    /**
+     * Adds the specified element to this tree if it is not already present.
+     *
+     * @param data data to be inserted into this tree
+     * @return <code>false</code> if duplicates are not allowed AND if this tree already contains the specified data,
+     * <code>true</code> otherwise
+     * @throws IllegalArgumentException - if the specified data is null
+     */
     public boolean add(T data) {
         if (data == null) {
             throw new IllegalArgumentException();
@@ -291,7 +297,18 @@ public class RBTreeImplementation<T extends Comparable<T>> {
         return rbInsert(new Node<>(data));
     }
 
+    /**
+     * Removes the specified data from this tree if it is present.
+     *
+     * @param data data to be removed from this tree if present.
+     * @return <code>true</code> if this tree contains the specified data,
+     * <code>false</code> otherwise
+     * @throws IllegalArgumentException - if the specified data is null
+     */
     public boolean remove(T data) {
+        if (data == null) {
+            throw new IllegalArgumentException();
+        }
         Node<T> nodeToRemove = iterativeSearch(root, data);
         if (nodeToRemove == nil)
             return false;
@@ -301,20 +318,42 @@ public class RBTreeImplementation<T extends Comparable<T>> {
         }
     }
 
+    /**
+     * Checks if this tree contains specified data.
+     *
+     * @param data data to be examined
+     * @return <code>true</code> if this tree contains specified data,
+     * <code>false</code> otherwise
+     * @throws IllegalArgumentException - if the specified data is null
+     */
     public boolean contains(T data) {
+        if (data == null) {
+            throw new IllegalArgumentException();
+        }
         return iterativeSearch(root, data) != nil;
     }
 
+    /**
+     * Returns the number of elements in this tree.
+     *
+     * @return the number of elements in this tree
+     */
     public int getSize() {
         return size;
     }
 
+    /**
+     * Prints tree's data. Traversing type: inOrder.
+     */
     public void print() {
         inOrderTreeWalk(root);
         System.out.println();
     }
 
-    private static class Node<T> {
+    /**
+     * This class is a basic unit of a Red-Black tree data structure.
+     */
+    private static final class Node<T> {
         T data;
         Node<T> leftChild;
         Node<T> rightChild;
