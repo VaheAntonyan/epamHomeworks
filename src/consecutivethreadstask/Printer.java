@@ -8,7 +8,7 @@ public class Printer implements Runnable {
     private String name;
 
     public Printer(String name, int threadId, int threadCount) {
-        this.threadId = threadId;
+        this.threadId = threadId + 1;
         this.name = name;
         if (Printer.threadCount == -999) {
             Printer.threadCount = threadCount;
