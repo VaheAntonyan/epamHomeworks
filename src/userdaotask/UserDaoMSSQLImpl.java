@@ -37,71 +37,46 @@ public class UserDaoMSSQLImpl implements UserDao {
             System.out.println("Creating table if not exist...");
             stmt.executeUpdate(CREATE_TABLE);
 
-//            System.out.println("Inserting in table...");
-//            System.out.println("insertUser(stmt, new User(1, \"Vahe\", 21, 'M')); row count for statement = "
-//                    + insertUser(stmt, new User(1, "Vahe", 21, 'M')));
-//
-//            System.out.println("Inserting in table...");
-//            System.out.println("insertUser(stmt, new User(2, \"Armen\", 25, 'M')); row count for statement = "
-//                    + insertUser(stmt, new User(2, "Armen", 25, 'M')));
-//
-//            System.out.println("Inserting in table...");
-//            System.out.println("insertUser(stmt, new User(3, \"Karen\", 25, 'M')); row count for statement = "
-//                    + insertUser(stmt, new User(3, "Karen", 25, 'M')));
-
-//            System.out.println("Updating table...");
-//            System.out.println("updateUser(stmt, new User(2, \"Ashot\", 23, 'M')); row count for statement = "
-//                    + updateUser(stmt, new User(2, "Ashot", 23, 'M')));
-//
-//            System.out.println("Getting record...");
-//            User user2 = getUserById(stmt, 2);
-//            System.out.println("user = " + user2);
-//
-//            System.out.println("Getting data...");
-//            getUserFirstNameAndAge(stmt, 3);
-//
-//            //deleteUser()
-//            {
-//                System.out.println("Deleting record...");
-//                int id = 2;
-//                int row = deleteUser(stmt, id);
-//                System.out.println(String.format("deleteUser(stmt, %d)", id));
-//                System.out.println(row != 0 ? "Deleted successfully" : String.format("No user with id: %d", id));
-//            }
+//            demo();
 
         } catch (SQLException se) {
-            //Handle errors for JDBC
             se.printStackTrace();
-        } /*finally {
-            //finally block used to close resources
-            try {
-                if (stmt != null)
-                    stmt.close();
-            } catch (SQLException ignored) {
-                // nothing we can do
-            }
-            try {
-                if (conn != null)
-                    conn.close();
-            } catch (SQLException se) {
-                se.printStackTrace();
-            }
-        }*/
+//            close();
+        }
     }
 
-    private static int updateUser(Statement stmt, User u) throws SQLException {
-        return stmt.executeUpdate(String.format(
-                "UPDATE [Users]\n" +
-                        "SET [Name] = '%s', [Age] = %d, [Gender] = '%c'\n" +
-                        "WHERE [UserID] = %s;"
-                , u.getName()
-                , u.getAge()
-                , u.getGender()
-                , u.getId()));
-    }
+    private void demo() throws SQLException {
+        System.out.println("Inserting in table...");
+        System.out.println("insertUser(stmt, new User(1, \"Vahe\", 21, 'M')); row count for statement = "
+                + insertUser(new User(1, "Vahe", 21, 'M')));
 
-    private static int deleteUser(Statement stmt, int id) throws SQLException {
-        return stmt.executeUpdate("DELETE FROM Users WHERE UserID = " + id);
+        System.out.println("Inserting in table...");
+        System.out.println("insertUser(stmt, new User(2, \"Armen\", 25, 'M')); row count for statement = "
+                + insertUser(new User(2, "Armen", 25, 'M')));
+
+        System.out.println("Inserting in table...");
+        System.out.println("insertUser(stmt, new User(3, \"Karen\", 25, 'M')); row count for statement = "
+                + insertUser(new User(3, "Karen", 25, 'M')));
+
+        System.out.println("Updating table...");
+        System.out.println("updateUser(stmt, new User(2, \"Ashot\", 23, 'M')); row count for statement = "
+                + updateUser(new User(2, "Ashot", 23, 'M')));
+
+        System.out.println("Getting record...");
+        User user2 = getUserById(2);
+        System.out.println("user = " + user2);
+
+        System.out.println("Getting data...");
+        getUserFirstNameAndAge(stmt, 3);
+
+        //deleteUser()
+        {
+            System.out.println("Deleting record...");
+            int id = 2;
+            int row = deleteUser(id);
+            System.out.println(String.format("deleteUser(stmt, %d)", id));
+            System.out.println(row != 0 ? "Deleted successfully" : String.format("No user with id: %d", id));
+        }
     }
 
     private static void getUserFirstNameAndAge(Statement stmt, int id) throws SQLException {
@@ -118,7 +93,37 @@ public class UserDaoMSSQLImpl implements UserDao {
         rs.close();
     }
 
-    private static User getUserById(Statement stmt, int id) {
+    @Override
+    public int updateUser(User u) {
+        try {
+            return stmt.executeUpdate(String.format(
+                    "UPDATE [Users]\n" +
+                            "SET [Name] = '%s', [Age] = %d, [Gender] = '%c'\n" +
+                            "WHERE [UserID] = %s;"
+                    , u.getName()
+                    , u.getAge()
+                    , u.getGender()
+                    , u.getId()));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Updating User was not successful.");
+        return -1;
+    }
+
+    @Override
+    public int deleteUser(int id) {
+        try {
+            return stmt.executeUpdate("DELETE FROM Users WHERE UserID = " + id);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Deleting User was not successful.");
+        return -1;
+    }
+
+    @Override
+    public User getUserById(int id) {
         User user = null;
         try {
             String query = "SELECT * FROM Users WHERE UserID = " + id;
@@ -142,18 +147,36 @@ public class UserDaoMSSQLImpl implements UserDao {
         return user;
     }
 
-    private static int insertUser(Statement stmt, User u) throws SQLException {
-        return stmt.executeUpdate(String.format(
-                "INSERT INTO [Users]([UserId], [Name], [Age], [Gender]) VALUES (%d, '%s', %d, '%c');"
-                , u.getId()
-                , u.getName()
-                , u.getAge()
-                , u.getGender()
-        ));
+    @Override
+    public int insertUser(User u) {
+        try {
+            return stmt.executeUpdate(String.format(
+                    "INSERT INTO [Users]([UserId], [Name], [Age], [Gender]) VALUES (%d, '%s', %d, '%c');"
+                    , u.getId()
+                    , u.getName()
+                    , u.getAge()
+                    , u.getGender()
+            ));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Inserting User was not successful.");
+        return -1;
     }
 
     @Override
-    public User getUserById(int id) {
-        return getUserById(stmt, id);
+    public void close() {
+        try {
+            if (stmt != null)
+                stmt.close();
+        } catch (SQLException ignored) {
+            // nothing we can do
+        }
+        try {
+            if (conn != null)
+                conn.close();
+        } catch (SQLException se) {
+            se.printStackTrace();
+        }
     }
 }
